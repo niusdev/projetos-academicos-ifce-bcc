@@ -1,0 +1,376 @@
+:root {
+  --bg: #0d0e12;
+  --panel: #15171d;
+  --panel-2: #1a1c23;
+  --line: #26282f;
+  --line-soft: #1d1f26;
+  --text: #e8e9ed;
+  --text-dim: #9a9eac;
+  --text-faint: #5c5f6b;
+  --accent: #f0a830;
+  --accent-dim: #3a2e18;
+  --good: #4fb88a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+/* ───────────── LAYOUT ───────────── */
+
+.conteudo {
+  width: 100%;
+  max-width: 1680px;
+  padding: 32px 32px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.conteudo h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 22px;
+  align-self: center;
+}
+
+.conteudo h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+/* ───────────── STATUS ───────────── */
+
+.status {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  width: 100%;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+}
+
+.status-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+
+.status-valor {
+  font-size: 19px;
+  font-weight: 700;
+  font-family: "Consolas", monospace;
+  color: var(--accent);
+}
+
+/* ───────────── GRADE / CRONOGRAMA ───────────── */
+
+.secao-grade {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.secao-grade h2 {
+  align-self: center;
+}
+
+.tabela-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+table#cronograma {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+#cronograma th:first-child,
+#cronograma td:first-child {
+  width: 90px;
+}
+
+#cronograma th,
+#cronograma td {
+  border: 1px solid var(--line-soft);
+  padding: 0;
+  text-align: center;
+  font-size: 11.5px;
+}
+
+#cronograma thead th {
+  background: var(--panel-2);
+  color: var(--text-dim);
+  padding: 9px 2px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: sticky;
+  top: 0;
+}
+
+#cronograma thead th:first-child {
+  text-align: left;
+  padding-left: 12px;
+}
+
+#cronograma tbody td:first-child {
+  background: var(--panel-2);
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+  padding: 0 12px;
+  white-space: nowrap;
+  position: sticky;
+  left: 0;
+}
+
+#cronograma tbody tr {
+  height: 44px;
+}
+
+#cronograma td.aula {
+  color: #0d0e12;
+  font-weight: 600;
+  font-size: 11.5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 4px;
+}
+
+/* célula que acabou de receber uma aula nova: fade-in suave */
+#cronograma td.aula.apareceu {
+  animation: apareceCelula 0.6s ease-out;
+}
+
+@keyframes apareceCelula {
+  0% {
+    opacity: 0;
+    box-shadow: inset 0 0 0 2px #fff;
+  }
+  100% {
+    opacity: 1;
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+}
+
+/* célula que teve a aula removida/trocada: leve flash antes de limpar */
+#cronograma td.mudou {
+  animation: flash 0.7s ease-out;
+}
+
+@keyframes flash {
+  0% {
+    box-shadow: inset 0 0 0 2px #fff;
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+}
+
+/* ───────────── AÇÕES ───────────── */
+
+.acoes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+#btnIniciar {
+  background: var(--accent);
+  color: #1a1305;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#btnIniciar:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#btnIniciar:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+/* ───────────── PAINEL INFERIOR (aulas aguardando alocação) ───────────── */
+
+.painel-inferior {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+
+.painel-inferior h2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 1px 8px;
+  margin-left: 6px;
+  font-family: "Consolas", monospace;
+}
+
+.feedback-final {
+  display: none;
+  margin-left: 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  vertical-align: middle;
+}
+
+.feedback-final.visivel {
+  display: inline-block;
+  animation: feedbackEntra 0.4s ease-out;
+}
+
+.feedback-final.sucesso {
+  background: rgba(79, 184, 138, 0.15);
+  color: var(--good);
+  border: 1px solid rgba(79, 184, 138, 0.35);
+}
+
+.feedback-final.incompleto {
+  background: rgba(240, 90, 90, 0.12);
+  color: #f06a6a;
+  border: 1px solid rgba(240, 90, 90, 0.35);
+}
+
+@keyframes feedbackEntra {
+  0% {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nao-alocadas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 52px;
+}
+
+.nao-alocada-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* estado de saída: aula que acabou de ser alocada some do painel */
+.nao-alocada-item.saindo {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* estado de entrada: aula nova chegando ao painel (recém ficou sem alocação) */
+.nao-alocada-item.entrando {
+  opacity: 0;
+}
+
+.nao-alocada-cor {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.nao-alocada-texto {
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+
+.nao-alocada-texto strong {
+  display: block;
+  color: var(--text);
+}
+
+.nao-alocada-texto span {
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.nao-alocadas-vazio {
+  color: var(--good);
+  font-size: 13px;
+  padding: 10px 2px;
+}
+
+/* ───────────── RESPONSIVO ───────────── */
+
+@media (max-width: 760px) {
+  .conteudo {
+    padding: 24px 16px 40px;
+  }
+
+  .status {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .painel-inferior {
+    padding: 16px;
+  }
+
+  table#cronograma {
+    table-layout: auto;
+    min-width: 980px;
+  }
+}

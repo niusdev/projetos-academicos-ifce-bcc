@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alocação de Salas - Algoritmo Genético</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <main class="conteudo">
+        <h1>Alocação de Aulas em Salas</h1>
+
+        <section class="status">
+          <div class="status-item">
+            <span class="status-label">Geração</span>
+            <span class="status-valor" id="statGeracao">0</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Score</span>
+            <span class="status-valor" id="statScore">0</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Alocadas</span>
+            <span class="status-valor" id="statAlocadas">0 / 0</span>
+          </div>
+        </section>
+
+        <section class="secao-grade">
+          <h2>Cronograma</h2>
+          <div class="tabela-wrapper">
+            <table id="cronograma"></table>
+          </div>
+        </section>
+
+        <div class="acoes">
+          <button id="btnIniciar">Iniciar</button>
+        </div>
+
+        <section class="painel-inferior">
+          <h2>
+            Aulas aguardando alocação <span id="contagemNaoAlocadas" class="badge">0</span>
+            <span id="feedbackFinal" class="feedback-final"></span>
+          </h2>
+          <div id="naoAlocadas" class="nao-alocadas"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
